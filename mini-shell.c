@@ -3,8 +3,8 @@
 int main(){
     printf("mini-shellzinho: ");
 
-    char command[5];
-    scanf("%s", command);
+    char command[20];
+    fgets(command, sizeof(command), stdin);
 
     printf("\nResultado: %s\n", command);
     return 0;
