@@ -3,9 +3,9 @@
 int main(){
     printf("mini-shellzinho: ");
 
-    char command;
-    scanf("%c", &command);
+    char command[5];
+    scanf("%s", command);
 
-    printf("\nResultado: %c\n", command);
+    printf("\nResultado: %s\n", command);
     return 0;
 }
