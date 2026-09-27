@@ -1,11 +1,16 @@
 #include <stdio.h>
 
+#define AZUL "\x1b[34m"
+#define RESET "\x1b[0m"
+
 int main(){
-    printf("mini-shellzinho: ");
+    while (1){
+        printf(AZUL"mini-shell: "RESET);
 
-    char command[20];
-    fgets(command, sizeof(command), stdin);
+        char command[1024];
+        fgets(command, sizeof(command), stdin);
 
-    printf("\nResultado: %s\n", command);
+        printf("%s\n", command);
+    }
     return 0;
 }
