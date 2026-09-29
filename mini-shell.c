@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define AZUL "\x1b[34m"
 #define RESET "\x1b[0m"
@@ -16,9 +17,18 @@ int main(){
         char command[1024];
         fgetsResult = fgets(command, sizeof(command), stdin);
 
-        if(fgetsResult != NULL)
+        if(fgetsResult != NULL){
             printf("%s", command);
-            
+
+            char *token;
+
+            token = strtok(command, " ");
+            printf("%s\n", token);
+
+            while(token = strtok(NULL, " ")){
+                printf("%s\n", token);
+            }
+        }
     } while (fgetsResult != NULL);
     printf("\n");
     return 0;
