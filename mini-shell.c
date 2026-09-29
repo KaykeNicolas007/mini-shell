@@ -4,13 +4,15 @@
 #define RESET "\x1b[0m"
 
 int main(){
-    while (1){
+    char* fgetsResult;
+    do {
         printf(AZUL"mini-shell: "RESET);
 
         char command[1024];
-        fgets(command, sizeof(command), stdin);
+        fgetsResult = fgets(command, sizeof(command), stdin);
 
-        printf("%s\n", command);
-    }
+        printf("%s", command);
+    } while (fgetsResult != NULL);
+    printf("saindo...\n");
     return 0;
 }
