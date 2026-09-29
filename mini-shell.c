@@ -9,6 +9,17 @@ void type_prompt(){
     fflush(stdout);
 }
 
+void tokenize(char *command){
+    char *token;
+
+    token = strtok(command, " ");
+    printf("%s\n", token);
+
+    while(token = strtok(NULL, " ")){
+        printf("%s\n", token);
+    }
+}
+
 int main(){
     char* fgetsResult;
     do {
@@ -18,17 +29,9 @@ int main(){
         fgetsResult = fgets(command, sizeof(command), stdin);
 
         if(fgetsResult != NULL){
-            printf("%s", command);
-
-            char *token;
-
-            token = strtok(command, " ");
-            printf("%s\n", token);
-
-            while(token = strtok(NULL, " ")){
-                printf("%s\n", token);
-            }
+            tokenize(command);
         }
+
     } while (fgetsResult != NULL);
     printf("\n");
     return 0;
