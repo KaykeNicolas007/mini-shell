@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define AZUL "\x1b[34m"
@@ -9,15 +10,17 @@ void type_prompt(){
     fflush(stdout);
 }
 
-void tokenize(char *command){
+char **tokenize(char *command){
     char *token;
-
-    token = strtok(command, " ");
-    printf("%s\n", token);
-
-    while(token = strtok(NULL, " ")){
-        printf("%s\n", token);
-    }
+    char **allTokens = malloc(64 * sizeof(char *));
+    
+    token = strtok(command, " \n");
+    do{
+        int i = 0;
+        allTokens[i++] = token;        
+    } while(token = strtok(NULL, " \n"));
+    
+    return allTokens;
 }
 
 int main(){
