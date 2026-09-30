@@ -2,17 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define AZUL "\x1b[34m"
+#define BLUE "\x1b[34m"
 #define RESET "\x1b[0m"
+#define MAX_ARGS 64
+#define MAX_COMMAND_SIZE 1024
 
 void type_prompt(){
-    printf(AZUL"mini-shell: "RESET);
+    printf(BLUE"mini-shell: "RESET);
     fflush(stdout);
 }
 
 char **tokenize(char *command){
     char *token;
-    char **allTokens = malloc(64 * sizeof(char *));
+    char **allTokens = malloc(MAX_ARGS * sizeof(char *));
     
     token = strtok(command, " \n");
     do{
@@ -28,14 +30,14 @@ int main(){
     do {
         type_prompt();
 
-        char command[1024];
+        char command[MAX_COMMAND_SIZE];
         fgetsResult = fgets(command, sizeof(command), stdin);
 
         if(fgetsResult != NULL){
             tokenize(command);
         }
-
     } while (fgetsResult != NULL);
+
     printf("\n");
     return 0;
 }
