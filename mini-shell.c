@@ -15,27 +15,38 @@ void type_prompt(){
 char **tokenize(char *command){
     char *token;
     char **allTokens = malloc(MAX_ARGS * sizeof(char *));
+    int i = 0;
     
     token = strtok(command, " \n");
     do{
-        int i = 0;
         allTokens[i++] = token;        
     } while(token = strtok(NULL, " \n"));
+    allTokens[i++] = token;
     
     return allTokens;
 }
 
+void execute(char **tokens){
+    int i = 0;
+    while(tokens[i] != NULL){
+        printf("Token: %s\n", tokens[i++]);
+    }
+}
+
 int main(){
-    char* fgetsResult;
+    char *fgetsResult;
     do {
         type_prompt();
 
         char command[MAX_COMMAND_SIZE];
         fgetsResult = fgets(command, sizeof(command), stdin);
 
+        char **tokens;
         if(fgetsResult != NULL){
-            tokenize(command);
+            tokens = tokenize(command);
+            execute(tokens);
         }
+
     } while (fgetsResult != NULL);
 
     printf("\n");
