@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #define BLUE "\x1b[34m"
 #define RESET "\x1b[0m"
@@ -36,10 +37,11 @@ void execute(char **tokens){
     }
 
     if(p_id == 0){
-        int i = 0;
-        while(tokens[i] != NULL){
-            printf("Token: %s\n", tokens[i++]);
-        }
+        // int i = 0;
+        // while(tokens[i] != NULL){
+        //     printf("Token (Só que no pai): %s\n", tokens[i++]);
+        // }
+        execvp("./execDemo", tokens);
     }
     if(p_id > 0){
         printf("Aqui é o pai esperando... Sem esperar...\n");
