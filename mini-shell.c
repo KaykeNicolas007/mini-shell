@@ -30,6 +30,7 @@ char **tokenize(char *command){
 
 void execute(char **tokens){
     int p_id = fork();
+    int status;
 
     if(p_id < 0){
         printf("Ocorreu um erro durante a chamada de fork()\n");
@@ -37,14 +38,10 @@ void execute(char **tokens){
     }
 
     if(p_id == 0){
-        // int i = 0;
-        // while(tokens[i] != NULL){
-        //     printf("Token (Só que no pai): %s\n", tokens[i++]);
-        // }
         execvp("./execDemo", tokens);
     }
     if(p_id > 0){
-        printf("Aqui é o pai esperando... Sem esperar...\n");
+        waitpid(p_id, &status, 0);
     }
 }
 
