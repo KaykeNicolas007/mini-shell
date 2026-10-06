@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define BLUE "\x1b[34m"
 #define RESET "\x1b[0m"
@@ -27,9 +28,21 @@ char **tokenize(char *command){
 }
 
 void execute(char **tokens){
-    int i = 0;
-    while(tokens[i] != NULL){
-        printf("Token: %s\n", tokens[i++]);
+    int p_id = fork();
+
+    if(p_id < 0){
+        printf("Ocorreu um erro durante a chamada de fork()\n");
+        return;
+    }
+
+    if(p_id == 0){
+        int i = 0;
+        while(tokens[i] != NULL){
+            printf("Token: %s\n", tokens[i++]);
+        }
+    }
+    if(p_id > 0){
+        printf("Aqui é o pai esperando... Sem esperar...\n");
     }
 }
 
