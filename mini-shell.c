@@ -33,14 +33,14 @@ void execute(char **tokens){
     int status;
 
     if(p_id < 0){
-        printf("Ocorreu um erro durante a chamada de fork()\n");
+        perror("Ocorreu um erro durante a chamada de fork!\n");
         return;
     }
 
     if(p_id == 0){
-        char shell_command[] = "./";
-        strcat(shell_command, tokens[0]);
-        execvp(shell_command, tokens);
+        execvp(tokens[0], tokens);
+        perror("Ocorreu um erro durante a chamada de execvp!\n");
+        exit(EXIT_FAILURE);
     }
     if(p_id > 0){
         waitpid(p_id, &status, 0);
@@ -59,6 +59,7 @@ int main(){
         if(fgetsResult != NULL){
             tokens = tokenize(command);
             execute(tokens);
+            free(tokens);
         }
 
     } while (fgetsResult != NULL);
