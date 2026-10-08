@@ -38,7 +38,9 @@ void execute(char **tokens){
     }
 
     if(p_id == 0){
-        execvp("./execDemo", tokens);
+        char shell_command[] = "./";
+        strcat(shell_command, tokens[0]);
+        execvp(shell_command, tokens);
     }
     if(p_id > 0){
         waitpid(p_id, &status, 0);
