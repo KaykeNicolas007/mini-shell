@@ -1,6 +1,8 @@
 mini-shell
 execDemo
 copiarArquivos
+origem.txt
+destino.txt
 
 # Prerequisites
 *.d
