@@ -3,10 +3,10 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 32
 
 int main(int argc, char *argv[]){
-    int source_access, destination_access;
+    int source_access, destination_access, read_bytes, written_bytes;
     char buffer[BUFFER_SIZE];
 
     if(argc != 3){
@@ -30,10 +30,18 @@ int main(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
 
-    printf("Retorno do open: %d\nTamanho do buffer: %dB\nQuantidade de argumentos: %d\n", source_access, BUFFER_SIZE, argc);
-    for(int i = 0; i < argc; i++){
-        printf("Token[%d] = %s\n", i, argv[i]);
-    }
+    do{
+        read_bytes = read(source_access, buffer, BUFFER_SIZE);
+        write(destination_access, buffer, read_bytes);
+    }while(read_bytes > 0);
+
+    close(source_access);
+    close(destination_access);
+
+    if(read_bytes == 0)
+        exit(EXIT_SUCCESS);
+    else
+        exit(EXIT_FAILURE);
 
     return 0;
 }
